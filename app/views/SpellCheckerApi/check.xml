@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suggestions>
+#{list items:list,'as':'term'}
+	<term value="${term.term}" position="${term.position}" count="${term.count}">
+	#{list items:term.list,'as':'item'}
+		<suggestion value="${item}" />
+	#{/list}
+	</term>
+#{/list}
+</suggestions>

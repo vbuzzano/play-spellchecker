@@ -1,0 +1,11 @@
+<ul>
+#{list items:list,'as':'term'}
+<li>${term.term} (Position: ${term.position}, Suggestions: ${term.count})
+	<ul>
+		#{list items:term.list,'as':'item'}
+		<li>${item}</li>
+		#{/list}
+	</ul>
+</li>
+#{/list}
+</ul>

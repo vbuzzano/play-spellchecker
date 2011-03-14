@@ -1,0 +1,1 @@
+[#{list items:list,'as':'term'}{"term":"${term.term}","position":"${term.position}","count":"${term.count}","list":[#{list items:term.list,'as':'item'}"${item}"#{if !item_isLast},#{/if}#{/list}]}#{if !term_isLast},#{/if}#{/list}]

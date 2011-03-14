@@ -1,0 +1,13 @@
+# This file defines all module routes (Higher priority routes first)
+#
+# import these routes in the main app as :
+# *     /api                       module:spellcheker
+#
+# ~~~~
+
+GET			/spellchecker/check/{text}					SpellCheckerApi.check
+GET			/spellchecker/check/{lang}/{text}			SpellCheckerApi.check
+GET			/spellchecker/check/{engine}/{lang}/{text}	SpellCheckerApi.check
+GET			/spellchecker/check							SpellCheckerApi.check
+
+*			/spellchecker/test							SpellCheckerApi.test

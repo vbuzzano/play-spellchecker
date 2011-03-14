@@ -1,0 +1,86 @@
+<html>  
+<head>
+	<meta charset="utf-8">
+	<title>Test Play! SpellChecker Module</title>
+	#{spellChecker.meta /}
+
+	#{stylesheet 'jquery.play-spellchecker.css' /}
+
+	#{script 'libs/jquery-1.4.2.min.js' /}
+	#{script 'libs/jquery-ui-1.8.5.custom.min.js' /}
+	#{script 'jquery.play-spellchecker.js' /}
+  
+	<script>
+	$(document).ready(function(){
+		$("textarea").spellchecker({
+			url: spellCheckerCheck(),  		// default spellcheck url
+	        lang: "fr",                 	// default language 
+	        engine: "intern",           	// intern, pspell or google
+	        addToDictionary: false,     	// display option to add word to dictionary (pspell only)
+//	        wordlist: {
+//	                action: "after",               // which jquery dom insert action
+//	                element: $("#text-content")    // which object to apply above method
+//	        },      
+	        suggestBoxPosition: "below",	// position of suggest box; above or below the highlighted word
+	        innerDocument: false        	// if you want the badwords highlighted in the html then set to true
+		});
+		
+		$("[value='Check']").click(function() {
+			$("textarea").spellchecker("check");	
+		});
+		
+		$("#check-html").click(function(e){
+			e.preventDefault();
+			var self = this;
+			
+			if (/^remove/i.test($.trim($(this).text()))) {
+				$("#content").spellchecker("remove");
+				$(this).html("Check Spelling");
+			} else {
+				$(".loading").show();
+
+				$("#content")
+				.spellchecker({
+					engine: "intern",
+					innerDocument: true,
+					addToDictionary: false
+				})
+				.spellchecker("check", function(result){
+					$(self).html("Remove Spelling");			
+					// spell checker has finished checking words
+					$(".loading").hide();
+					// if result is true then there are no badly spelt words
+					if (result) {
+						alert('There are no incorrectly spelt words.');
+					}
+				});					
+			}
+		});	
+
+
+	});
+	</script>
+</head>
+<body>
+	<textarea style="width: 600px; height: 350px;">
+	</textarea>
+	<br/>
+	<input type="button" value="Check" />
+	
+	<hr/>
+	
+	<div id="content">
+	<p>
+		"But I must explain to you how all this mistaken idea of <strong style="font-style:italic;">denounncing</strong> pleasure and <strong>praising</strong> pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master builder of human happiness. Noo, one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequencse's that are extremely painful.
+	</p>							
+	<p>
+
+		Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying caonsequences, or one who avoids a pain that produces no resultant pleasure?"
+	</p>
+	<p>
+		"On the other hand, we anounce with righteous indignations's and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that arre Arre bound to Arre ensue; and equal blame belongs to those who faile in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.
+	</p>
+</div>
+<a href="#check" id="check-html" class="ui-state-default ui-corner-all ui-button ui-icon-check">Check Spelling</a>
+</body>
+</html>

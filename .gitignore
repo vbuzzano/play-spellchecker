@@ -1,0 +1,11 @@
+*~
+bin/*
+*.class
+*.pyc
+test-result/*
+eclipse/*
+.classpath
+.project
+.settings/*
+tmp/*
+attachment/*
