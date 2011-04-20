@@ -1,0 +1,4 @@
+self: play -> spellchecker 0.1
+
+require:
+    - play
