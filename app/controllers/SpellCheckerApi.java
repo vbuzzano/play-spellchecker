@@ -3,7 +3,6 @@ package controllers;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import play.i18n.Lang;
@@ -22,9 +21,10 @@ public class SpellCheckerApi extends Controller {
 	}
 	
 	public static void check(String text, String lang) {
+		
 		List<String> list = null;
 		Future<List<String>> task = null;
-				
+
 		if (text != null)
 			try {
 				text = URLDecoder.decode(text, "UTF-8");
@@ -32,23 +32,12 @@ public class SpellCheckerApi extends Controller {
 				error(e);
 			}
 		
-		if (request.isNew) {
-			if (lang == null || lang.trim().length() == 0) lang = Lang.get();
-			 task = (Future<List<String>>)
-			 	SpellChecker.with(text, lang).checkAsync();
-			request.args.put("task", task);
-			waitFor(task);
-		}
+		if (lang == null || lang.trim().length() == 0) lang = Lang.get();
+		 task = (Future<List<String>>)
+		 	SpellChecker.with(text, lang).checkAsync();
+		request.args.put("task", task);
 
-		try {
-			task = (Future<List<String>>) request.args.get("task");
-			list = task.get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
-		
+		list = await(task);
 		
 		render(list);		
 	}
