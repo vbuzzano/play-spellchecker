@@ -5,9 +5,9 @@
 #
 # ~~~~
 
-GET			/spellchecker/check/{text}					SpellCheckerApi.check
-GET			/spellchecker/check/{lang}/{text}			SpellCheckerApi.check
-GET			/spellchecker/check/{engine}/{lang}/{text}	SpellCheckerApi.check
-GET			/spellchecker/check							SpellCheckerApi.check
+*			/spellchecker/check/{text}					SpellCheckerApi.check
+*			/spellchecker/check/{lang}/{text}			SpellCheckerApi.check
+*			/spellchecker/check/{engine}/{lang}/{text}	SpellCheckerApi.check
+*			/spellchecker/check							SpellCheckerApi.check
 
 *			/spellchecker/test							SpellCheckerApi.test
